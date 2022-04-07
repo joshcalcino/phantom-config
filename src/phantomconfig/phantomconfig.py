@@ -419,7 +419,7 @@ class PhantomConfig:
         tmp = self.config[variable]
 
         if not isinstance(value, type(tmp[1])):
-            if not isinstance(type(tmp[1]), list):
+            if type(tmp[1]) != list:
                 raise ValueError('Value and variable are not compatible')
 
         self.config[variable] = ConfigVariable(tmp[0], value, tmp[2], tmp[3])
