@@ -333,6 +333,8 @@ def _convert_value_type_phantom(value: str) -> Any:
         return True
     if value == 'F':
         return False
+    if value[0] == '[':
+        return extract_string_list_values(value)
 
     for regex in float_regexes:
         if re.fullmatch(regex, value):
@@ -348,3 +350,22 @@ def _convert_value_type_phantom(value: str) -> Any:
             return int(value)
 
     return value
+
+
+def extract_string_list_values(value: str) -> List:
+    """ Extract values from a list that's a stupid string and return them
+            as an actual list."""
+
+    # Trunctate the start and end
+    value = value.replace('[', '')
+    value = value.replace(']', '')
+
+    # Now split the string from a comma delimiter
+    value = value.split(',')
+
+    # Populate a list with the values
+    values = []
+    for string in value:
+        values.append(float(string))
+
+    return values
