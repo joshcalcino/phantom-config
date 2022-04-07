@@ -419,7 +419,7 @@ class PhantomConfig:
         tmp = self.config[variable]
 
         if not isinstance(value, type(tmp[1])):
-            if not isinstance(type(tmp[1]), List):
+            if not isinstance(type(tmp[1]), list):
                 raise ValueError('Value and variable are not compatible')
 
         self.config[variable] = ConfigVariable(tmp[0], value, tmp[2], tmp[3])
@@ -475,6 +475,8 @@ class PhantomConfig:
                         hhh = int(val.total_seconds() / 3600)
                         mm = int((val.total_seconds() - 3600 * hhh) / 60)
                         val_string = f'{hhh:03}:{mm:02}'.rjust(_length)
+                    elif isinstance(val, list):
+                        val_string = str(val)
                     else:
                         raise ValueError('Cannot determine type')
                     lines.append(f'{var:>20} = ' + val_string + f'   ! {comment}\n')
