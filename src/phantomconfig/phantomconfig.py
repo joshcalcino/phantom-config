@@ -514,7 +514,10 @@ class PhantomConfig:
 
     def __eq__(self, other):
         """Equivalence method."""
-        return self.config == other.config
+        try:
+            return self.config == other.config
+        except AttributeError:
+            return self.config == other
 
 
 def _serialize_datetime_for_json(
